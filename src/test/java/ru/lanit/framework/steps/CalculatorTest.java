@@ -42,12 +42,37 @@ public class CalculatorTest {
                 {"16", "8*2"}
         };
     }
+    @DataProvider
+    public Object[][] numberProviderForSumNegative() {
+        return new Object[][]{
+                {"4", "3 + 2"},
+                {"5", "1 + 2"}
 
+        };
+    }
     @DataProvider
     public Object[][] testEqualsNegative() {
         return new Object[][]{
-                {"8", "2*4"},
+                {"9", "2*4"},
                 {"15", "8*2"}
+        };
+    }
+
+    @DataProvider
+    public Object[][] numberProviderForMinusNegative() {
+        return new Object[][]{
+                {"0", "3 - 2"},
+                {"1", "1 - 2"}
+
+        };
+    }
+
+    @DataProvider
+    public Object[][] numberProviderForDivisionNegative() {
+        return new Object[][]{
+                {"2.000000", "3 / 3"},
+                {"6.000000", "8 / 2"}
+
         };
     }
 
@@ -72,8 +97,23 @@ public class CalculatorTest {
         Assert.assertEquals(Calculator.calculateExpression(expression), result, "Wrong result");
     }
 
+    @Test(dataProvider = "numberProviderForSumNegative")
+    public void testSumNegative(String result, String expression) {
+        Assert.assertNotEquals(Calculator.calculateExpression(expression), result, "Wrong result");
+    }
+
     @Test(dataProvider = "testEqualsNegative")
-    public void testEqualsNegative(String result, String expression) {
+    public void testMultiplicationEqualsNegative(String result, String expression) {
+        Assert.assertNotEquals(Calculator.calculateExpression(expression), result, "Values are equal!");
+    }
+
+    @Test(dataProvider = "numberProviderForMinusNegative")
+    public void testMinusEqualsNegative(String result, String expression) {
+        Assert.assertNotEquals(Calculator.calculateExpression(expression), result, "Values are equal!");
+    }
+
+    @Test(dataProvider = "numberProviderForDivisionNegative")
+    public void testDivisionEqualsNegative(String result, String expression) {
         Assert.assertNotEquals(Calculator.calculateExpression(expression), result, "Values are equal!");
     }
 }
